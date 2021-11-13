@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Voice Controlled Notes App</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta16/shoelace.css">
+        <!-- <link rel="stylesheet" type="text/css" href="/home/ubuntu/hci_teamproject/css/main.css"> -->
+        <style>
+            body {
+  background-image: url(/views/img2.png);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  font-family: NanumBarunGothic;
+
+}
+#mic_buttton {
+  border-radius: 100px;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: none;
+  margin: 0 auto;
+  background: linear-gradient(155.21deg, #82901d 10.7%, #8e751c 90.03%);
+  box-shadow: 0px 44px 66px rgba(176, 195, 210, 0.727846);
+  border-radius: 101.5px;
+  /* animation: active 2s infinite; */
+}
+
+.mic_buttton_active {
+  animation: active 2s infinite;
+}
+
+@keyframes active {
+  0% {
+    box-shadow: 0 0 0 #b8be85;
+  }
+
+  70% {
+    box-shadow: 0 0 0 25px rgba(13, 112, 29, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 30px rgba(13, 112, 29, 0);
+  }
+}
+
+#chatBox {
+  width: 339px;
+  height: 88px;
+  justify-content: center;
+  align-items: center;
+  float: none;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  background: #e5e5e5;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.16);
+  border-radius: 17px;
+  text-align: center;
+
+  /* float: none;
+  margin: 0 auto; */
+  /* display: table-cell; */
+  padding: 15px;
+  vertical-align: middle;
+}
+
+@font-face {
+  font-family: "NanumBarunGothic";
+  font-style: normal;
+  font-weight: 400;
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix")
+      format("embedded-opentype"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff")
+      format("woff"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf")
+      format("truetype");
+}
+
+.nanumbarungothic * {
+  font-family: "NanumBarunGothic", sans-serif;
+}
+
+        </style>
+    </head>
+    <body>
+        <div class="container" style="width : 100%; display: inline-block;text-align: center;">
+
+         
+            <div class="app"> 
+                <h3>Speech-To-Text</h3>
+                <div class="input-single">
+                    <!-- <textarea id="note-textarea" placeholder="Create a new note by typing or using voice recognition." rows="6"></textarea> -->
+                </div>         
+                <!-- <button id="start-record-btn" title="Start Recording">Start Recognition</button>
+                <button id="pause-record-btn" title="Pause Recording">Pause Recognition</button> -->
+                <!-- <button id="save-note-btn" title="Save Note">Save Note</button>    -->
+                <p id="recording-instructions">Press the <strong>Start Recognition</strong> button and allow access.</p>
+                
+              
+            </div>
+
+         
+            <div class="row text-center" style="float: none;"> 
+                <div id = "chatBox" val = "" class="col text-center" ></div>
+
+             
+            <!-- <div class="row text-center ">
+                <div id = "chatBox" val = "">안녕</div>
+     -->
+                <div id = "mic_buttton" >
+                    <svg width="19" height="29" viewBox="0 0 19 29" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                        <path opacity="0.9" fill-rule="evenodd" clip-rule="evenodd" d="M5.70456 4.51719C5.70456 3.45383 6.0976 2.43402 6.79722 1.68211C7.49684 0.930194 8.44572 0.507774 9.43513 0.507774C10.4245 0.507774 11.3734 0.930194 12.073 1.68211C12.7727 2.43402 13.1657 3.45383 13.1657 4.51719V13.6615C13.1657 14.7249 12.7727 15.7447 12.073 16.4966C11.3734 17.2485 10.4245 17.6709 9.43513 17.6709C8.44572 17.6709 7.49684 17.2485 6.79722 16.4966C6.0976 15.7447 5.70456 14.7249 5.70456 13.6615V4.51719ZM10.6787 22.9232C12.7506 22.6015 14.6454 21.4882 16.0157 19.7872C17.386 18.0862 18.1401 15.9115 18.1398 13.6615C18.1398 13.307 18.0088 12.9671 17.7756 12.7165C17.5424 12.4658 17.2261 12.325 16.8963 12.325C16.5665 12.325 16.2502 12.4658 16.017 12.7165C15.7838 12.9671 15.6527 13.307 15.6527 13.6615C15.6527 15.4338 14.9977 17.1334 13.8316 18.3866C12.6656 19.6398 11.0841 20.3439 9.43513 20.3439C7.78612 20.3439 6.20464 19.6398 5.03861 18.3866C3.87258 17.1334 3.21752 15.4338 3.21752 13.6615C3.21752 13.307 3.0865 12.9671 2.8533 12.7165C2.62009 12.4658 2.30379 12.325 1.97399 12.325C1.64419 12.325 1.32789 12.4658 1.09469 12.7165C0.861482 12.9671 0.730469 13.307 0.730469 13.6615C0.73019 15.9115 1.48429 18.0862 2.8546 19.7872C4.2249 21.4882 6.11963 22.6015 8.19161 22.9232V25.6897H6.46981C6.14 25.6897 5.82371 25.8306 5.5905 26.0812C5.3573 26.3318 5.22628 26.6718 5.22628 27.0262C5.22628 27.3807 5.3573 27.7206 5.5905 27.9713C5.82371 28.2219 6.14 28.3627 6.46981 28.3627H12.4005C12.7303 28.3627 13.0466 28.2219 13.2798 27.9713C13.513 27.7206 13.644 27.3807 13.644 27.0262C13.644 26.6718 13.513 26.3318 13.2798 26.0812C13.0466 25.8306 12.7303 25.6897 12.4005 25.6897H10.6787V22.9232Z" fill="white"/>
+                        </svg>
+                </div>
+            </div>
+           
+</div>
+
+        </div>
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="./script.js"></script>
+
+        
+
+    </body>
+</html>
+
+<!-- display: flex;
+                justify-content: center;
+                align-items: center; -->
