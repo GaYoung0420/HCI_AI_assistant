@@ -8,7 +8,7 @@ try {
   $(".app").hide();
 }
 
-var chatBox = $("#chatBox");
+var chatBox = $(".chatBox");
 var instructions = $("#recording-instructions");
 var notesList = $("ul#notes");
 var noteContent = "";
