@@ -8,7 +8,7 @@ try {
   $(".app").hide();
 }
 
-var chatBox = $("#chatBox");
+var chatBox = $("#user-first-say");
 var instructions = $("#recording-instructions");
 var notesList = $("ul#notes");
 var noteContent = "";
@@ -63,6 +63,7 @@ recognition.onspeechend = function () {
 
 recognition.onerror = function (event) {
   if (event.error == "no-speech") {
+    $(".chatBox").hide();
     $("#mic_buttton").removeClass("mic_buttton_active");
     instructions.text("No speech was detected. Try again.");
   }
@@ -73,16 +74,9 @@ recognition.onerror = function (event) {
   ------------------------------*/
 let active = true;
 
-// function active(state) {
-//   if (state) {
-//     $("#mic_buttton").addClass("mic_buttton_active");
-//   } else {
-//     $("#mic_buttton").removeClass("mic_buttton_active");
-//   }
-// }
-
 $("#mic_buttton").on("click", function (e) {
   if (active) {
+    $(".chatBox").fadeIn();
     if (noteContent.length) {
       noteContent += " ";
       console.log(noteContent);
@@ -91,6 +85,7 @@ $("#mic_buttton").on("click", function (e) {
     $("#mic_buttton").addClass("mic_buttton_active");
     active = false;
   } else {
+    $(".chatBox").hide();
     $("#mic_buttton").removeClass("mic_buttton_active");
     recognition.stop();
     instructions.text("Voice recognition paused.");
@@ -106,44 +101,6 @@ $("#pause-record-btn").on("click", function (e) {
 // Sync the text inside the text area with the noteContent variable.
 chatBox.on("input", function () {
   noteContent = $(this).val();
-});
-
-$("#save-note-btn").on("click", function (e) {
-  recognition.stop();
-
-  if (!noteContent.length) {
-    instructions.text(
-      "Could not save empty note. Please add a message to your note."
-    );
-  } else {
-    // Save note to localStorage.
-    // The key is the dateTime with seconds, the value is the content of the note.
-    saveNote(new Date().toLocaleString(), noteContent);
-
-    // Reset variables and update UI.
-    noteContent = "";
-    renderNotes(getAllNotes());
-    chatBox.val("");
-    instructions.text("Note saved successfully.");
-  }
-});
-
-notesList.on("click", function (e) {
-  e.preventDefault();
-  var target = $(e.target);
-
-  // Listen to the selected note.
-  if (target.hasClass("listen-note")) {
-    var content = target.closest(".note").find(".content").text();
-    readOutLoud(content);
-  }
-
-  // Delete note.
-  if (target.hasClass("delete-note")) {
-    var dateTime = target.siblings(".date").text();
-    deleteNote(dateTime);
-    target.closest(".note").remove();
-  }
 });
 
 /*-----------------------------
