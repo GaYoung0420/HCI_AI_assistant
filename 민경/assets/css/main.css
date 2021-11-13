@@ -15,13 +15,16 @@
   font-family: "NanumBarunGothic", sans-serif;
 }
 
-.container{
+body{
   background-image: url("../img/img2.png");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
   height: 100vh;
   font-family: NanumBarunGothic;
+}
+.container{
+  height: 100vh;
 }
 .chatBox {
   width: 18em;

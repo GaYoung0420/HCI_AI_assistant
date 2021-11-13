@@ -1,0 +1,20 @@
+.chatBox{
+    width: 20em;
+    padding: 2em 1em 2em 1.5em;
+}
+#user-first-say{
+    font-weight: 900;
+}
+#user-say{
+    font-size: 0.8em;
+}
+#tree-say{
+    color: #848E1D;
+}
+#tree-answer{
+    color: #848E1D;
+    font-size: 0.8em;
+}
+#user-answer{
+    font-weight: 900;
+}
