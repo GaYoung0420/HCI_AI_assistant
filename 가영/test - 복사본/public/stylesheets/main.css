@@ -1,5 +1,9 @@
 body {
+<<<<<<< HEAD:가영/test - 복사본/public/stylesheets/main.css
   background-image: url(/img/img2.png);
+=======
+  background-image: url("img1.jpg");
+>>>>>>> ebbd3b996e7152367c1a54800fc00539532d9c0e:가영/views/main.css
   background-position: bottom;
   background-repeat: no-repeat;
   background-size: cover;
