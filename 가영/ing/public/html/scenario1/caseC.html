@@ -62,7 +62,7 @@
 
       <div class="fixed-bottom mb-5">
         <div id="explain">
-          <div class="case text-center">Case A</div>
+          <div class="case text-center" style="color: #fbc400">Case C</div>
           <div class="chat-box text-center mb-4">
             <div class="mb-4" id="condition-text">
               나무를 이용하여 다음 목표를 달성해주세요!
@@ -102,12 +102,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-      $("#explain").hide();
-      $("#scenario1").fadeOut(1700);
-      $("#explain").delay(1700).fadeIn();
-
       $("#mic-button").click(() => {
-        window.localStorage.setItem("stageState", "caseA");
+        window.localStorage.setItem("stageState", "caseC");
         location.href = "./main.html";
       });
     </script>

@@ -39,7 +39,7 @@
           </div>
         </div>
 
-        <!-- 결과창 -->
+        <!-- Case 결과창 -->
         <div id="result-dialog" style="display: none">
           <div class="preview-box">
             <div class="box row">
@@ -56,18 +56,73 @@
             <div id="message">메시지</div>
             <div class="box mb-3" id="msg-text">뭐해?</div>
             <div id="checkBtn" class="row" style="display: none">
-              <div class="col">
-                <button id="next-btn" type="button">확인</button>
+              <div class="row" style="margin: 0">
+                <div class="col"></div>
+                <div class="col">
+                  <button id="confirm-btn" type="button">확인</button>
+                </div>
+                <div class="col">
+                  <button id="modify-btn" type="button">수정</button>
+                </div>
+                <div class="col"></div>
               </div>
-              <div class="col">
-                <button id="next-btn" type="button">취소</button>
+            </div>
+          </div>
+
+          <div class="chat-box mb-4" style="margin-top: -7px">
+            <div id="user-say-result" class="user-say mb-4" val=""></div>
+            <div id="tree-say-result" class="tree-say"></div>
+          </div>
+        </div>
+
+        <!-- caseC 선택창 -->
+        <div id="selectBox" style="display: none">
+          <div class="preview-box">
+            <div class="box" style="height: 180px">
+              <div id="select1" class="row">
+                <div class="col-2 text-center mr-1">
+                  <div id="number">1</div>
+                </div>
+                <div class="col">
+                  <div class="ms-1">
+                    <div id="phone-num">010-1234-5678</div>
+                    <div id="name">가영</div>
+                  </div>
+                  <hr />
+                </div>
+              </div>
+              <div id="select2" class="row">
+                <div class="col-2 text-center mr-1">
+                  <div id="number">2</div>
+                </div>
+                <div class="col">
+                  <div class="ms-1">
+                    <div id="phone-num">010-5689-8978</div>
+                    <div id="name">가영</div>
+                    <hr />
+                  </div>
+                </div>
+              </div>
+              <div id="select3" class="row">
+                <div class="col-2 text-center mr-1">
+                  <div id="number">3</div>
+                </div>
+                <div class="col">
+                  <div class="ms-1">
+                    <div id="phone-num">010-8981-2508</div>
+                    <div id="name">가영</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="chat-box mb-4" style="margin-top: -10px">
-            <div id="user-say-result" class="mb-4 user-say" val=""></div>
-            <div id="tree-say-result" class="tree-say"></div>
+            <div id="user-say-select" class="mb-4 user-sayt" val=""></div>
+            <div id="tree-say-select" class="tree-say">
+              "가영"이 포함된 연락처를 3개 찾았어요. 이 중 누구에게 문자를
+              보낼까요?
+            </div>
           </div>
         </div>
 
@@ -91,17 +146,44 @@
       </div>
     </div>
     <!-- AI 오디오 resource -->
+    <!-- caseA -->
     <audio id="caseA-1" autoplay="autoplay" muted="muted">
       <source src="../../mp3//scenario1/A-1.mp3" type="audio/mp3" />
     </audio>
     <audio id="finish" autoplay="autoplay" muted="muted">
-      <source src="../../mp3//scenario1/finish.mp3" type="audio/mp3" />
+      <source src="../../mp3//scenario1/A-2.mp3" type="audio/mp3" />
     </audio>
     <audio id="caseA-fin" autoplay="autoplay" muted="muted">
       <source src="../../mp3//scenario1/A-fin.mp3" type="audio/mp3" />
     </audio>
+    <audio id="error" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario1/error.mp3" type="audio/mp3" />
+    </audio>
+    <!-- caseB -->
+    <audio id="caseB-2" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario1/B-2.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="caseB-modify" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario1/B-modify.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="caseB-3" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario1/B-3.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="caseB-4" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario1/B-send.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="caseB-fin" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario1/B-fin.mp3" type="audio/mp3" />
+    </audio>
+    <!-- caseC -->
+    <audio id="caseC-1" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario1/C-1.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="caseC-fin" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario1/C-fin.mp3" type="audio/mp3" />
+    </audio>
+    <!-- script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../../js/mic_script.js"></script>
-    <script src="../../js/stageA.js"></script>
   </body>
 </html>
