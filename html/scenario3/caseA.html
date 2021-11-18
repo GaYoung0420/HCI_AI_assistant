@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Controlled Notes App</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta16/shoelace.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../stylesheets/index.css" />
+    <link rel="stylesheet" href="../../stylesheets/case.css" />
+    <style>
+      .flex-container {
+        width: 100%;
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div
+        class="
+          h-100
+          d-flex
+          flex-column
+          justify-content-center
+          align-items-center
+        "
+      >
+        <div
+          id="scenario1"
+          class="
+            flex-column
+            justify-content-center
+            align-items-center
+            text-center
+            mb-2
+          "
+          style="color: white; letter-spacing: 3px; font-size: 30px"
+        >
+          <b>시나리오 3</b>
+        </div>
+      </div>
+
+      <div class="fixed-bottom mb-5">
+        <div id="explain">
+          <div class="case text-center">Case A</div>
+          <div class="chat-box text-center mb-4">
+            <div class="mb-4" id="condition-text">
+              나무를 이용하여 다음 목표를 달성해주세요!
+            </div>
+            <div class="mb-2" id="task">Task 목표 3</div>
+            <div class="mb-4 task-info">
+              <b>조이의 "안녕" 노래를 재생</b>하세요
+            </div>
+            <div class="mb-4 task-info">
+              자, 이제 아래 마이크 <b>버튼</b>을 누르고<br />
+              나무에게 다음과 같은 <b>명령어</b>로 <b>시작</b>해주세요
+            </div>
+            <div id="task-text">"안녕 노래 틀어줘"</div>
+          </div>
+        </div>
+
+        <div class="mic-button" id="mic-button">
+          <svg
+            width="19"
+            height="29"
+            viewBox="0 0 19 29"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.9"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.70456 4.51719C5.70456 3.45383 6.0976 2.43402 6.79722 1.68211C7.49684 0.930194 8.44572 0.507774 9.43513 0.507774C10.4245 0.507774 11.3734 0.930194 12.073 1.68211C12.7727 2.43402 13.1657 3.45383 13.1657 4.51719V13.6615C13.1657 14.7249 12.7727 15.7447 12.073 16.4966C11.3734 17.2485 10.4245 17.6709 9.43513 17.6709C8.44572 17.6709 7.49684 17.2485 6.79722 16.4966C6.0976 15.7447 5.70456 14.7249 5.70456 13.6615V4.51719ZM10.6787 22.9232C12.7506 22.6015 14.6454 21.4882 16.0157 19.7872C17.386 18.0862 18.1401 15.9115 18.1398 13.6615C18.1398 13.307 18.0088 12.9671 17.7756 12.7165C17.5424 12.4658 17.2261 12.325 16.8963 12.325C16.5665 12.325 16.2502 12.4658 16.017 12.7165C15.7838 12.9671 15.6527 13.307 15.6527 13.6615C15.6527 15.4338 14.9977 17.1334 13.8316 18.3866C12.6656 19.6398 11.0841 20.3439 9.43513 20.3439C7.78612 20.3439 6.20464 19.6398 5.03861 18.3866C3.87258 17.1334 3.21752 15.4338 3.21752 13.6615C3.21752 13.307 3.0865 12.9671 2.8533 12.7165C2.62009 12.4658 2.30379 12.325 1.97399 12.325C1.64419 12.325 1.32789 12.4658 1.09469 12.7165C0.861482 12.9671 0.730469 13.307 0.730469 13.6615C0.73019 15.9115 1.48429 18.0862 2.8546 19.7872C4.2249 21.4882 6.11963 22.6015 8.19161 22.9232V25.6897H6.46981C6.14 25.6897 5.82371 25.8306 5.5905 26.0812C5.3573 26.3318 5.22628 26.6718 5.22628 27.0262C5.22628 27.3807 5.3573 27.7206 5.5905 27.9713C5.82371 28.2219 6.14 28.3627 6.46981 28.3627H12.4005C12.7303 28.3627 13.0466 28.2219 13.2798 27.9713C13.513 27.7206 13.644 27.3807 13.644 27.0262C13.644 26.6718 13.513 26.3318 13.2798 26.0812C13.0466 25.8306 12.7303 25.6897 12.4005 25.6897H10.6787V22.9232Z"
+              fill="white"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      $("#explain").hide();
+      $("#scenario1").fadeOut(1700);
+      $("#explain").delay(1700).fadeIn();
+
+      $("#mic-button").click(() => {
+        window.localStorage.setItem("stageState", "caseA");
+        location.href = "./main.html";
+      });
+    </script>
+  </body>
+</html>

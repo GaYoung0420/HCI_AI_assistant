@@ -19,7 +19,7 @@
 #user-answer {
   font-weight: 900;
 }
-/* a-4, caseA  result page*/
+/* a-4, caseA,C  result page*/
 .preview-box {
   width: 20em;
   border-radius: 10px 10px 0 0;
@@ -70,6 +70,7 @@
   padding: 7px 15px;
   font-size: smaller;
   font-weight: 900;
+  float: right;
 }
 #modify-btn {
   background: #e5e5e5;
