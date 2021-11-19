@@ -24,6 +24,12 @@
   </head>
   <body>
     <div class="container">
+      <div id = "replay" class = "row mt-3">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.12368 9.63931H0.515625C0.230871 9.63931 0 9.40844 0 9.12368V0.515625C0 0.230871 0.230871 0 0.515625 0H2.57813C2.86288 0 3.09375 0.230871 3.09375 0.515625V3.872C5.06056 1.68777 7.91742 0.320977 11.0935 0.344051C16.9761 0.386762 21.683 5.14035 21.6705 11.0232C21.658 16.8978 16.8919 21.6562 11.0143 21.6562C8.26049 21.6562 5.75081 20.6116 3.85958 18.897C3.64048 18.6984 3.63039 18.3576 3.83952 18.1485L5.29904 16.689C5.49128 16.4967 5.80014 16.4863 6.00377 16.6664C7.33734 17.8465 9.09133 18.5625 11.0143 18.5625C15.1938 18.5625 18.5768 15.1802 18.5768 11C18.5768 6.82056 15.1945 3.4375 11.0143 3.4375C8.50081 3.4375 6.27572 4.66108 4.90097 6.54556H9.12368C9.40844 6.54556 9.63931 6.77643 9.63931 7.06118V9.12368C9.63931 9.40844 9.40844 9.63931 9.12368 9.63931V9.63931Z" fill="white"/>
+          </svg>
+      </div>
+     
       <div class="fixed-bottom mb-5">
         <!-- User Speaking -->
         <div id="user-container" style="display: none">
@@ -43,15 +49,27 @@
         <!-- CaseA,B,C 결과창 -->
         <div id="result-dialog" style="display: none;">
           <div class="preview-box">
-            <div class="row">
+            
+            
+            <div id = "paul_kim" class="row" style="display: none;">
               <div class="col-4" style="padding-left: 0;">
-                <img class="image-border" src="../../img/폴킴-안녕.jpg" alt="폴킴의 안녕">
+                <img class="image-border" src="../../img/hello1.jpg" alt="폴킴의 안녕">
               </div>
               <div class="col contexts">
                 <div class="song-title">안녕</div>
                 <div class="artist">폴킴 - 호텔 델루나 OST Part.10 (tvN 토일드라마)</div>
               </div>
             </div>
+            <div id = "joy" class="row" style="display: none;">
+              <div class="col-4" style="padding-left: 0;">
+                <img class="image-border" src="../../img/hello2.jpg" alt="조이의 안녕">
+              </div>
+              <div class="col contexts">
+                <div class="song-title">안녕</div>
+                <div class="artist">조이 (JOY) - 안녕 (Hello) - Special Album</div>
+              </div>
+            </div>
+
           </div>
           <div class="chat-box mb-4" style="margin-top: -7px">
             <div id="user-say-result" class="user-say mb-4" val=""></div>
@@ -60,11 +78,11 @@
         </div>
         
         <!-- CaseB 선택창 -->
-        <div id="result-dialog" style="display: none;">
+        <div id="result-dialog" style="display: none;" >
           <div class="preview-box">
             <div class="row mb-3">
               <div class="col-4" style="padding-left: 0;">
-                <img class="image-border" src="../../img/폴킴-안녕.jpg" alt="폴킴의 안녕">
+                <img class="image-border" src="../../img/hello1.jpg" alt="폴킴의 안녕">
               </div>
               <div class="col contexts">
                         <!-- <div class="song-title-text">곡명 : </div> -->
@@ -73,14 +91,14 @@
                 <div class="artist">폴킴 - 호텔 델루나 OST Part.10 (tvN 토일드라마)</div>
               </div>
             </div>
-            <div id="checkBtn" class="row">
+            <!-- <div id="checkBtn" class="row">
               <div class="col">
                 <button id="confirm-btn" type="button">확인</button>
               </div>
               <div class="col">
                 <button id="modify-btn" type="button">수정</button>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="chat-box mb-4" style="margin-top: -7px">
             <div id="user-say-result" class="user-say mb-4" val=""></div>
@@ -89,7 +107,7 @@
         </div>
         
         <!-- CaseC 선택창 -->
-        <div id="result-dialog" >
+        <div id="selectBox" style="display: none">
           <div class="preview-box">
             <div id="search-results">검색 결과</div>
             <div class="contents">
@@ -104,7 +122,7 @@
               <div class="row">
                 <div class="col-1 circle"><img src="../../img/play.png" width="20" height="20"></div>
                 <div class="col-6 song-title"><b>안녕</b></div>
-                <div class="col">효린</div>
+                <div class="col">조이 (JOY)</div>
               </div>
               <div id="line"></div>
             </div>
@@ -134,8 +152,8 @@
             </div>
           </div>
           <div class="chat-box mb-4" style="margin-top: -7px">
-            <div id="user-say-result" class="user-say mb-4" val=""></div>
-            <div id="tree-say-result" class="tree-say"></div>
+            <div id="user-say-select" class="user-say mb-4" val=""></div>
+            <div id="tree-say-select" class="tree-say"></div>
           </div>
         </div>
 
@@ -158,13 +176,20 @@
         </div>
       </div>
     </div>
+
+    <!-- Music -->
+    <audio id="hello_JOY" autoplay="autoplay" muted="muted" >
+      <source src="../../mp3//scenario3/hello_JOY.mp3" type="audio/mp3" />
+    </audio>
+    <audio id="hello_Paul_Kim" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario3/hello_Paul_Kim.mp3" type="audio/mp3" />
+    </audio>
+
+
     <!-- AI 오디오 resource -->
     <!-- caseA -->
     <audio id="caseA-1" autoplay="autoplay" muted="muted">
-      <source src="../../mp3//scenario1/A-1.mp3" type="audio/mp3" />
-    </audio>
-    <audio id="finish" autoplay="autoplay" muted="muted">
-      <source src="../../mp3//scenario1/A-2.mp3" type="audio/mp3" />
+      <source src="../../mp3//scenario3/A-1.mp3" type="audio/mp3" />
     </audio>
     <audio id="caseA-fin" autoplay="autoplay" muted="muted">
       <source src="../../mp3//scenario1/A-fin.mp3" type="audio/mp3" />
@@ -173,10 +198,16 @@
       <source src="../../mp3//scenario1/error.mp3" type="audio/mp3" />
     </audio>
     <!-- caseB -->
-    <audio id="caseB-2" autoplay="autoplay" muted="muted">
-      <source src="../../mp3//scenario1/B-2.mp3" type="audio/mp3" />
+    <audio id="caseB-1" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario3/B-1.mp3" type="audio/mp3" />
     </audio>
-    <audio id="caseB-modify" autoplay="autoplay" muted="muted">
+    <audio id="caseB-2-1" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario3/B-2(1).mp3" type="audio/mp3" />
+    </audio>
+    <audio id="caseB-3" autoplay="autoplay" muted="muted">
+      <source src="../../mp3//scenario3/B-3.mp3" type="audio/mp3" />
+    </audio>
+    <!-- <audio id="caseB-modify" autoplay="autoplay" muted="muted">
       <source src="../../mp3//scenario1/B-modify.mp3" type="audio/mp3" />
     </audio>
     <audio id="caseB-3" autoplay="autoplay" muted="muted">
@@ -184,19 +215,19 @@
     </audio>
     <audio id="caseB-4" autoplay="autoplay" muted="muted">
       <source src="../../mp3//scenario1/B-send.mp3" type="audio/mp3" />
-    </audio>
+    </audio> -->
     <audio id="caseB-fin" autoplay="autoplay" muted="muted">
       <source src="../../mp3//scenario1/B-fin.mp3" type="audio/mp3" />
-    </audio>
+    </audio> 
     <!-- caseC -->
     <audio id="caseC-1" autoplay="autoplay" muted="muted">
-      <source src="../../mp3//scenario1/C-1.mp3" type="audio/mp3" />
+      <source src="../../mp3//scenario3/C-1.mp3" type="audio/mp3" />
     </audio>
     <audio id="caseC-fin" autoplay="autoplay" muted="muted">
       <source src="../../mp3//scenario1/C-fin.mp3" type="audio/mp3" />
     </audio>
     <!-- script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../../js/mic_script.js"></script>
+    <script src="../../js/scenario3_mic_script.js"></script>
   </body>
 </html>

@@ -1,6 +1,11 @@
 active = true;
 userSpeak = "";
 stageState = window.localStorage.getItem("stageState");
+if(stageState.indexOf("caseA") != -1 ||stageState.indexOf("caseB") != -1 
+ ||stageState.indexOf("caseC") != -1 ){
+  startStage = stageState;
+  console.log(startStage);
+ }
 class SpeechRecongnitionAPI {
   constructor() {
     const SpeechToText =
@@ -99,6 +104,11 @@ window.onload = function () {
     } else {
       speech.stop();
     }
+  });
+
+  $("#replay").on("click", function (e) {
+    window.localStorage.setItem("stageState", startStage);
+    window.location.reload()
   });
 };
 
