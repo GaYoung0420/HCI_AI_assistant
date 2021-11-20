@@ -111,7 +111,7 @@ window.onload = function () {
     window.location.reload()
   });
 };
-
+let start,end,time
 /***** CaseA *****/
 function caseA(api, userSpeak) {
   console.log(userSpeak);
@@ -122,6 +122,7 @@ function caseA(api, userSpeak) {
     userSpeak.indexOf("가영") != -1 &&
     userSpeak.indexOf("문자") != -1
   ) {
+    start = new Date();
     answerContain(
       userSpeak,
       document.querySelector("#caseA-1"),
@@ -146,6 +147,10 @@ function caseA(api, userSpeak) {
       document.querySelector("#caseA-fin").play();
     }, 10000);
     window.localStorage.setItem("stageState", "scenario1 : caseA-fin");
+    end = new Date();
+    time = end - start;
+    // 밀리초 단위로 반환
+    console.log("time : " + time)
   } else {
     answerContain(
       userSpeak,

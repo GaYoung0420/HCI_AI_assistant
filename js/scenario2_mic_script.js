@@ -109,7 +109,8 @@ function caseA(api, userSpeak) {
     stageState == "scenario2 : caseA" &&
     userSpeak.indexOf("미팅") != -1 &&
     userSpeak.indexOf("8") != -1 &&
-    userSpeak.indexOf("30") != -1) 
+    (userSpeak.indexOf("30") != -1 ||
+    userSpeak.indexOf("반") != -1) ) 
   {
     $("#changed").show();
     resultDialog(
@@ -150,7 +151,8 @@ function caseB(api, userSpeak) {
     stageState == "scenario2 : caseB" &&
     userSpeak.indexOf("미팅") != -1 &&
     userSpeak.indexOf("8") != -1 &&
-    userSpeak.indexOf("30") != -1) {
+    (userSpeak.indexOf("30") != -1 ||
+    userSpeak.indexOf("반") != -1)) {
     $("#changed").hide();
     resultDialog(
       userSpeak,
@@ -286,7 +288,8 @@ function caseC(api, userSpeak) {
     stageState == "scenario2 : caseC" &&
     userSpeak.indexOf("미팅") != -1 &&
     userSpeak.indexOf("8") != -1 &&
-    userSpeak.indexOf("30") != -1
+    (userSpeak.indexOf("30") != -1 ||
+    userSpeak.indexOf("반") != -1)
   ) {
     selectDialog(userSpeak, document.querySelector("#caseC-1"),"해당 일정이 3개가 존재합니다. 어떤 일정을 수정할까요?");
     window.localStorage.setItem("stageState", "scenario2 : caseC-task1");
