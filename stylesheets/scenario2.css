@@ -1,0 +1,36 @@
+#previous-schedule, #changed {
+    font-size: 10px;
+    font-weight: 1000;
+}
+.inner-contents{
+    padding: 15px 0 0 20px;
+    margin-top: -7px;
+}
+.selected-circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #9ac441;
+    padding: 0;
+    position: relative;
+    top: 5px;
+    left: 6px;
+}
+.circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid #9ac441;
+    padding: 0;
+    position: relative;
+    top: 5px;
+    left: 6px;
+}
+.title{
+    font-size: 15px;
+    font-weight: 900;
+}
+.date{
+    font-size: 11px;
+    font-weight: 1000;
+}

@@ -1,0 +1,38 @@
+/* .song-title-text, .artist-text{
+    float: left;
+    margin-right: 4px;
+    font-size: 13px;
+}  */
+.image-border{
+    border-radius: 10%;
+    overflow: hidden;
+}
+.contexts{
+    margin-top: 15px;
+    padding-left: 0;
+}
+.song-title{
+    font-weight: 900;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.artist{
+    font-size: 13px;
+    overflow: hidden;
+}
+#search-results{
+    font-size: 11px;
+}
+.contents{
+    padding: 15px 0 0 20px;
+    font-size: 14px;
+}
+.circle{
+    padding: 0;
+}
+#line{
+    width: 14.5em;;
+    height: 1px;
+    background-color: #c1c1c1;
+    margin: 7px 0 0 10px;
+}

@@ -1,0 +1,36 @@
+.case {
+  width: 180px;
+  border-radius: 10px 10px 0 0;
+  background-color: rgb(255, 255, 255);
+  color: #ff9292;
+  padding: 0.2em 1em;
+  font-weight: 900;
+  font-size: 2em;
+  float: none;
+  margin: 0 auto;
+  font-weight: 900;
+}
+.chat-box {
+  padding: 3em 1em;
+}
+#condition-text {
+  font-weight: 900;
+  font-size: 0.9em;
+}
+#task {
+  width: 7em;
+  border-radius: 50px;
+  background-color: gray;
+  color: #fff;
+  padding: 2px;
+  font-weight: 900;
+  font-size: 0.8em;
+  float: none;
+  margin: 0 auto;
+}
+.task-info {
+  font-size: 0.8em;
+}
+#task-text {
+  font-weight: bolder;
+}
