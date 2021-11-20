@@ -219,7 +219,7 @@ function caseC(api, userSpeak) {
     userSpeak.indexOf("안녕") != -1
   ) {
     selectDialog(userSpeak, document.querySelector("#caseC-1"),
-    '"안녕"이라는 노래을 5개 찾았어요, 어떤 노래를 재생할까요?');
+    '"안녕"이라는 노래를 5개 찾았어요, 어떤 노래를 재생할까요?');
     window.localStorage.setItem("stageState", "scenario3 : caseC-task1");
   } else if (
     /** CaseC-2 **/

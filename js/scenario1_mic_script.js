@@ -135,7 +135,7 @@ function caseA(api, userSpeak) {
     resultDialog(
       userSpeak,
       document.querySelector("#finish"),
-      '가영에게 "뭐해"라고 문자를 보냈어요',
+      '가영(010-1234-5678)에게 "뭐해"라고 문자를 보냈어요',
       "010-1234-5678"
     );
     $("#mic-button").removeClass("mic_buttton_active");
@@ -144,7 +144,7 @@ function caseA(api, userSpeak) {
     setTimeout(() => {
       document.querySelector("#caseA-fin").muted = false;
       document.querySelector("#caseA-fin").play();
-    }, 6000);
+    }, 10000);
     window.localStorage.setItem("stageState", "scenario1 : caseA-fin");
   } else {
     answerContain(
