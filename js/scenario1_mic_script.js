@@ -1,3 +1,4 @@
+let scenario1Array , arrayCaseA, arrayCaseB, arrayCaseC;
 active = true;
 userSpeak = "";
 stageState = window.localStorage.getItem("stageState");
@@ -28,8 +29,13 @@ class SpeechRecongnitionAPI {
         $("#user-first-say").val(transcript);
         $("#user-first-say").html('" ' + $("#user-first-say").val() + ' "');
         stageState = window.localStorage.getItem("stageState");
-        if (stageState == "scenario1 : caseA" || stageState == "scenario1 : caseA-task1")
+        if (stageState == "scenario1 : caseA" || stageState == "scenario1 : caseA-task1"){
+          if (stageState == "scenario1 : caseA"){
+            scenario1Array = new Array();
+            arrayCaseA = new Array();
+          } 
           caseA(this.speechApi, transcript);
+        }
         else if (
           stageState == "scenario1 : caseB" ||
           stageState == "scenario1 : caseB-task1" ||
@@ -111,6 +117,14 @@ window.onload = function () {
     window.location.reload()
   });
 };
+
+function stateAndUserSpeak(arrayCase,stage,userSpeak){
+  let state = new Object();
+  state.stage = stage;
+  state.user = userSpeak;
+  arrayCase.push(state);
+}
+
 let start,end,time
 /***** CaseA *****/
 function caseA(api, userSpeak) {
@@ -119,9 +133,10 @@ function caseA(api, userSpeak) {
 
   if (
     stageState == "scenario1 : caseA" &&
-    userSpeak.indexOf("가영") != -1 &&
+    userSpeak.indexOf("가영") != -1 ||
     userSpeak.indexOf("문자") != -1
   ) {
+    
     start = new Date();
     answerContain(
       userSpeak,
@@ -129,6 +144,9 @@ function caseA(api, userSpeak) {
       "가영에게 어떤 내용으로 문자를 보낼까요?"
     );
     window.localStorage.setItem("stageState", "scenario1 : caseA-task1");
+    stateAndUserSpeak(arrayCaseA,"scenario1 : caseA-task1",userSpeak);
+    
+
   } else if (
     stageState == "scenario1 : caseA-task1" &&
     (userSpeak.indexOf("뭐해") != -1 || userSpeak.indexOf("뭐") != -1)
@@ -147,9 +165,19 @@ function caseA(api, userSpeak) {
       document.querySelector("#caseA-fin").play();
     }, 10000);
     window.localStorage.setItem("stageState", "scenario1 : caseA-fin");
+
+    stateAndUserSpeak(arrayCaseA,"scenario1 : caseA-fin",userSpeak);
     end = new Date();
     time = end - start;
+    let timer = new Object();
+    timer.time = time;
+    arrayCaseA.push(timer);
+
     // 밀리초 단위로 반환
+    stateAndUserSpeak(arrayCaseA,"scenario1 : caseA-task1",userSpeak);
+
+    console.log(arrayCaseA)
+
     console.log("time : " + time)
   } else {
     answerContain(
@@ -205,7 +233,19 @@ function caseB(api, userSpeak) {
       "010-8981-2508"
     );
     window.localStorage.setItem("stageState", "scenario1 : caseB-task3");
-  } else if (
+  }else if (
+    /** CaseB-3(1) **/
+    stageState == "scenario1 : caseB-task2" &&
+    (userSpeak.indexOf("번호") != -1 )
+  ) {
+    $("#checkBtn").show();
+    resultDialog(
+      userSpeak,
+      document.querySelector("#caseB-modify-2"),
+      "수정할 전화번호를 알려주세요.",
+      "010-1234-5678"
+    );
+  }  else if (
     /** CaseB-3(1) **/
     stageState == "scenario1 : caseB-task2" &&
     (userSpeak.indexOf("아니") != -1 ||

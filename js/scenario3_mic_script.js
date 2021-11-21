@@ -110,7 +110,7 @@ function caseA(api, userSpeak) {
       userSpeak,
       document.querySelector("#caseA-1"),
       document.querySelector("#hello_Paul_Kim"),
-      '"안녕"을 재생할게요',"paul_kim"
+      '폴킴의 "안녕"을 재생할게요',"paul_kim"
     );
     $("#mic-button").removeClass("mic_buttton_active");
     api.stop();
@@ -129,9 +129,6 @@ function caseA(api, userSpeak) {
     );
   }
 }
-
-
-
 
 /***** CaseB *****/
 function caseB(api, userSpeak) {
