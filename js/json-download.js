@@ -4,8 +4,6 @@ window.onload = function() {
     console.log(""); 
 
     // [JSON 다운로드 실시] 
-    // var jsonObj = {"idx":1, "name":"twok"};
-
     let Experiment = JSON.parse(window.localStorage.getItem("Experiment"));
 
     new JsonDownload(Experiment).download();
