@@ -1,3 +1,9 @@
+let start,end,time,errorCount = 0;
+let Scenario3 = new Object();
+let CaseA = new Array();
+let CaseB = new Array();
+let CaseC = new Array();
+
 active = true;
 userSpeak = "";
 stageState = window.localStorage.getItem("stageState");
@@ -29,20 +35,30 @@ class SpeechRecongnitionAPI {
         $("#user-first-say").val(transcript);
         $("#user-first-say").html('" ' + $("#user-first-say").val() + ' "');
         stageState = window.localStorage.getItem("stageState");
-        if (stageState == "scenario3 : caseA" || stageState == "scenario3 : caseA-task1")
+        if (stageState == "scenario3 : caseA" 
+        || stageState == "scenario3 : caseA-task1"){
+          if (stageState == "scenario3 : caseA")
+            start = new Date();
           caseA(this.speechApi, transcript);
+        }
         else if (
           stageState == "scenario3 : caseB" ||
           stageState == "scenario3 : caseB-task1" ||
           stageState == "scenario3 : caseB-task2" ||
           stageState == "scenario3 : caseB-task3"
-        )
+        ){
+          if (stageState == "scenario3 : caseB")
+            start = new Date();
           caseB(this.speechApi, transcript);
+        }
         else if (
           stageState == "scenario3 : caseC" ||
           stageState == "scenario3 : caseC-task1" 
-        )
+        ){
+          if (stageState == "scenario3 : caseC")
+            start = new Date();
           caseC(this.speechApi, transcript);
+        }
         // stageState = caseB(this.speechApi, transcript);
     
       }
@@ -96,7 +112,32 @@ window.onload = function () {
   });
 };
 
-/***** CaseA *****/
+//******  사용자 입력 언어 체크 함수  ******/
+function stateAndUserSpeak(arrayCase,stage,userSpeak){
+  let state = new Object();
+  state.stage = stage;
+  state.user = userSpeak;
+  arrayCase.push(state);
+  console.log(arrayCase)
+}
+//******  사용자 수행 시간 측정 함수  ******/
+function checkTime(arrayCase) {
+  end = new Date();
+  let timer = new Object();
+  let error = new Object();
+  time = end - start; // 밀리초 단위로 반환
+  // console.log("start : "+ start);
+  // console.log("end : "+ end);
+  timer.time = time; 
+  error.errorCount = errorCount;
+  arrayCase.push(error);
+  arrayCase.push(timer);
+}
+
+//*************************************************************************************************
+//********************************************* CaseA *********************************************
+//*************************************************************************************************
+
 function caseA(api, userSpeak) {
   stageState = window.localStorage.getItem("stageState");
   console.log(userSpeak);
@@ -105,13 +146,21 @@ function caseA(api, userSpeak) {
   if (
     stageState == "scenario3 : caseA" &&
     userSpeak.indexOf("안녕") != -1) 
-  {
+  { //** CaseA-fin **/
     resultDialog(
       userSpeak,
       document.querySelector("#caseA-1"),
       document.querySelector("#hello_Paul_Kim"),
       '폴킴의 "안녕"을 재생할게요',"paul_kim"
     );
+    window.localStorage.setItem("stageState", "scenario3 : caseA-fin");
+
+    stateAndUserSpeak(CaseA,"scenario3 : caseA-fin",userSpeak);
+    checkTime(CaseA);
+    Scenario3.CaseA = CaseA;
+    window.localStorage.setItem("Scenario3", JSON.stringify(Scenario3));
+    console.log(Scenario3);
+
     $("#mic-button").removeClass("mic_buttton_active");
     api.stop();
     active = true;
@@ -120,13 +169,14 @@ function caseA(api, userSpeak) {
       document.querySelector("#caseA-fin").volume = 0.8;
       document.querySelector("#caseA-fin").play();
     }, 8000);
-    window.localStorage.setItem("stageState", "scenario3 : caseA-fin");
+
   } else{
     answerContain(
       userSpeak,
       document.querySelector("#error"),
       "무슨 말인지 못 알아들었어요."
     );
+    errorCount++;
   }
 }
 
@@ -135,16 +185,19 @@ function caseB(api, userSpeak) {
   stageState = window.localStorage.getItem("stageState");
   console.log(userSpeak);
   console.log("stageState:" + stageState);
-  /** CaseB-1 **/
+  //** CaseB-1 **/
   if ( stageState == "scenario3 : caseB" &&
       userSpeak.indexOf("안녕") != -1) {
-   
+      
+    Scenario3 = JSON.parse(window.localStorage.getItem("Scenario3"));
     showResultDialog(userSpeak, 
-      document.querySelector("#caseB-1"), 
-      "다음 노래를 재생할까요?","paul_kim")
+    document.querySelector("#caseB-1"), 
+    "다음 노래를 재생할까요?","paul_kim")
     window.localStorage.setItem("stageState", "scenario3 : caseB-task1");
+    stateAndUserSpeak(CaseB,"scenario3 : caseB-task1",userSpeak);
+
   } else if (
-    /** CaseB-2(1) **/
+    //** CaseB-2(1) **/
     stageState == "scenario3 : caseB-task1" &&
     (userSpeak.indexOf("아니") != -1 || userSpeak.indexOf("다른") != -1 )
   ) {
@@ -153,6 +206,7 @@ function caseB(api, userSpeak) {
       document.querySelector("#caseB-2-1"),
       "어떤 노래를 재생할까요?"
     );
+    stateAndUserSpeak(CaseB,stageState,userSpeak);
   } else if (
     /** CaseB-2 **/
     stageState == "scenario3 : caseB-task1" &&
@@ -162,6 +216,7 @@ function caseB(api, userSpeak) {
       document.querySelector("#caseB-1"), 
       "다음 노래를 재생할까요?","joy")
     window.localStorage.setItem("stageState", "scenario3 : caseB-task2");
+    stateAndUserSpeak(CaseB,"scenario3 : caseB-task2",userSpeak);
   } else if (
     stageState == "scenario3 : caseB-task2"  && 
     (userSpeak.indexOf("응") != -1 ||
@@ -178,6 +233,15 @@ function caseB(api, userSpeak) {
       document.querySelector("#hello_JOY"),
       '조이의 "안녕"을 재생할게요',"joy"
     );
+
+    window.localStorage.setItem("stageState", "scenario3 : caseB-fin");
+
+    stateAndUserSpeak(CaseB,"scenario3 : caseB-fin",userSpeak);
+    checkTime(CaseB);
+    Scenario3.CaseB = CaseB;
+    window.localStorage.setItem("Scenario3", JSON.stringify(Scenario3));
+    console.log(Scenario3);
+
     $("#mic-button").removeClass("mic_buttton_active");
     api.stop();
     active = true;
@@ -187,13 +251,13 @@ function caseB(api, userSpeak) {
       document.querySelector("#caseB-fin").volume = 0.8;
       document.querySelector("#caseB-fin").play();
     }, 8000);
-    window.localStorage.setItem("stageState", "scenario3 : caseB-fin");
   } else {
     answerContain(
       userSpeak,
       document.querySelector("#error"),
       "무슨 말인지 못 알아들었어요."
     );
+    errorCount++;
   }
 }
 
@@ -206,7 +270,10 @@ function caseB(api, userSpeak) {
 
 
 
-/***** CaseC *****/
+//*************************************************************************************************
+//********************************************* CaseC *********************************************
+//*************************************************************************************************
+
 function caseC(api, userSpeak) {
   console.log(userSpeak);
   console.log("stageState:" + stageState);
@@ -215,9 +282,11 @@ function caseC(api, userSpeak) {
     stageState == "scenario3 : caseC" &&
     userSpeak.indexOf("안녕") != -1
   ) {
+    Scenario3 = JSON.parse(window.localStorage.getItem("Scenario3"));
     selectDialog(userSpeak, document.querySelector("#caseC-1"),
     '"안녕"이라는 노래를 5개 찾았어요, 어떤 노래를 재생할까요?');
     window.localStorage.setItem("stageState", "scenario3 : caseC-task1");
+    stateAndUserSpeak(CaseC,"scenario3 : caseC-task1",userSpeak);
   } else if (
     /** CaseC-2 **/
     stageState == "scenario3 : caseC-task1" && 
@@ -229,6 +298,21 @@ function caseC(api, userSpeak) {
       document.querySelector("#hello_JOY"),
       '조이의 "안녕"을 재생할게요',"joy"
     );
+
+    window.localStorage.setItem("stageState", "scenario3 : caseC-fin");
+    stateAndUserSpeak(CaseC,"scenario3 : caseC-fin",userSpeak);
+
+    checkTime(CaseC);
+    Scenario3.CaseC = CaseC;
+    console.log(Scenario3)
+    window.localStorage.setItem("Scenario3", JSON.stringify(Scenario3));
+
+    let Experiment = JSON.parse(window.localStorage.getItem("Experiment"));
+    Experiment.Scenario3 = Scenario3
+    window.localStorage.setItem("Experiment", JSON.stringify(Experiment));
+    console.log(Experiment)
+
+
     $("#mic-button").removeClass("mic_buttton_active");
     api.stop();
     active = true;
@@ -236,13 +320,16 @@ function caseC(api, userSpeak) {
       document.querySelector("#caseC-fin").muted = false;
       document.querySelector("#caseC-fin").play();
     }, 7000);
-    window.localStorage.setItem("stageState", "scenario3 : caseC-fin");
+    
+
+
   } else {
     answerContain(
       userSpeak,
       document.querySelector("#error"),
       "무슨 말인지 못 알아들었어요."
     );
+    errorCount++;
   }
 }
 

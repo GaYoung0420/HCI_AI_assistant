@@ -1,6 +1,13 @@
+let start,end,time,errorCount = 0;
+let Scenario2 = new Object();
+let CaseA = new Array();
+let CaseB = new Array();
+let CaseC = new Array();
+
 active = true;
 userSpeak = "";
 stageState = window.localStorage.getItem("stageState");
+
 if(stageState.indexOf("caseA") != -1 ||stageState.indexOf("caseB") != -1 
  ||stageState.indexOf("caseC") != -1 ){
   startStage = stageState;
@@ -29,8 +36,11 @@ class SpeechRecongnitionAPI {
         $("#user-first-say").val(transcript);
         $("#user-first-say").html('" ' + $("#user-first-say").val() + ' "');
         stageState = window.localStorage.getItem("stageState");
-        if (stageState == "scenario2 : caseA" || stageState == "scenario2 : caseA-task1")
+        if (stageState == "scenario2 : caseA" || stageState == "scenario2 : caseA-task1"){
+          if (stageState == "scenario2 : caseA")
+            start = new Date();
           caseA(this.speechApi, transcript);
+        }
         else if (
           stageState == "scenario2 : caseB" ||
           stageState == "scenario2 : caseB-task1" ||
@@ -38,14 +48,21 @@ class SpeechRecongnitionAPI {
           stageState == "scenario2 : caseB-task2-2" ||
           stageState == "scenario2 : caseB-task2-3" ||
           stageState == "scenario2 : caseB-task3"
-        )
+        ){
+          if (stageState == "scenario2 : caseB")
+            start = new Date();
           caseB(this.speechApi, transcript);
+        }
+          
         else if (
           stageState == "scenario2 : caseC" ||
           stageState == "scenario2 : caseC-task1" ||
           stageState == "scenario2 : caseC-task2"
-        )
+        ){
+          if (stageState == "scenario2 : caseC")
+            start = new Date();
           caseC(this.speechApi, transcript);
+        }
         // stageState = caseB(this.speechApi, transcript);
     
       }
@@ -99,11 +116,34 @@ window.onload = function () {
   });
 };
 
-/***** CaseA *****/
+//******  사용자 입력 언어 체크 함수  ******/
+function stateAndUserSpeak(arrayCase,stage,userSpeak){
+  let state = new Object();
+  state.stage = stage;
+  state.user = userSpeak;
+  arrayCase.push(state);
+  console.log(arrayCase)
+}
+//******  사용자 수행 시간 측정 함수  ******/
+function checkTime(arrayCase) {
+  end = new Date();
+  let timer = new Object();
+  let error = new Object();
+  time = end - start; // 밀리초 단위로 반환
+  // console.log("start : "+ start);
+  // console.log("end : "+ end);
+  timer.time = time; 
+  error.errorCount = errorCount;
+  arrayCase.push(error);
+  arrayCase.push(timer);
+}
+
+//*************************************************************************************************
+//********************************************* CaseA *********************************************
+//*************************************************************************************************
+
 function caseA(api, userSpeak) {
   stageState = window.localStorage.getItem("stageState");
-  console.log(userSpeak);
-  console.log("stageState:" + stageState);
 
   if (
     stageState == "scenario2 : caseA" &&
@@ -112,6 +152,8 @@ function caseA(api, userSpeak) {
     (userSpeak.indexOf("30") != -1 ||
     userSpeak.indexOf("반") != -1) ) 
   {
+    //** CaseA-fin **/
+    
     $("#changed").show();
     resultDialog(
       userSpeak,
@@ -119,6 +161,15 @@ function caseA(api, userSpeak) {
       '11월 12일 "미팅" 일정을 오전 8시 30분으로 바꿨어요.',
       "2021.11.12 오전 8:30"
     );
+    
+    window.localStorage.setItem("stageState", "scenario2 : caseA-fin");
+  
+    stateAndUserSpeak(CaseA,"scenario2 : caseA-fin",userSpeak);
+    checkTime(CaseA);
+    Scenario2.CaseA = CaseA;
+    window.localStorage.setItem("Scenario2", JSON.stringify(Scenario2));
+    console.log(Scenario2);
+
     $("#mic-button").removeClass("mic_buttton_active");
     api.stop();
     active = true;
@@ -126,100 +177,108 @@ function caseA(api, userSpeak) {
       document.querySelector("#caseA-fin").muted = false;
       document.querySelector("#caseA-fin").play();
     }, 9000);
-    window.localStorage.setItem("stageState", "scenario2 : caseA-fin");
+
+
   } else{
     answerContain(
       userSpeak,
       document.querySelector("#error"),
       "무슨 말인지 못 알아들었어요."
     );
+    errorCount++;
   }
 }
 
 
 
 
-/***** CaseB *****/
-let date = "2021.11.12";
-let time =  "오전 8:30";
+//***** CaseB *****/
+let userDate = "2021.11.12";
+let userTime =  "오전 8:30";
 function caseB(api, userSpeak) {
   stageState = window.localStorage.getItem("stageState");
-  console.log(userSpeak);
-  console.log("stageState:" + stageState);
-  /** CaseB-1 **/
+  
+  //** CaseB-1 **/
   if (
     stageState == "scenario2 : caseB" &&
     (userSpeak.indexOf("미팅") != -1 || userSpeak.indexOf("일정") != -1)&&
     userSpeak.indexOf("8") != -1 &&
     (userSpeak.indexOf("30") != -1 ||
     userSpeak.indexOf("반") != -1)) {
+    Scenario2 = JSON.parse(window.localStorage.getItem("Scenario2"));
     $("#changed").hide();
     resultDialog(
       userSpeak,
       document.querySelector("#caseB-2"),
       '이대로 일정을 수정할까요?',
-      date+" "+time);
+      userDate+" "+userTime);
     window.localStorage.setItem("stageState", "scenario2 : caseB-task1");
+    stateAndUserSpeak(CaseB,"scenario2 : caseB-task1",userSpeak);
   } else if (
-    /** CaseB-2(2) **/
+    //** CaseB-2(2) **/
     stageState == "scenario2 : caseB-task1" &&
     userSpeak.indexOf("날짜") != -1 
   ) {
     resultDialog(
       userSpeak,
       document.querySelector("#caseB-2_2"),
-      "어떻게 날짜를 수정할까요?",date+" "+time
+      "어떻게 날짜를 수정할까요?",userDate+" "+userTime
     );
+    stateAndUserSpeak(CaseB,stageState,userSpeak);
   } else if (
-    /** CaseB-2(3) **/
+    //** CaseB-2(3) **/
     (stageState == "scenario2 : caseB-task1" || stageState == "scenario2 : caseB-task2-2") &&
     userSpeak.indexOf("시간") != -1 
   ) {
     resultDialog(
       userSpeak,
       document.querySelector("#caseB-2_3"),
-      "어떻게 시간을 수정할까요?",date+" "+time
+      "어떻게 시간을 수정할까요?",userDate+" "+userTime
     );
+    stateAndUserSpeak(CaseB,stageState,userSpeak);
   }  else if (
-    /** CaseB-2-1 => 11월 24일 오후 8시 30분 말한 경우**/
+    //** CaseB-2-1 => 11월 24일 오후 8시 30분 말한 경우**/
     stageState == "scenario2 : caseB-task1" && userSpeak.indexOf("11") != -1 &&
     userSpeak.indexOf("24") != -1 && userSpeak.indexOf("오후") != -1 ) {
-    date = "2021.11.24";
-    time = "오후 8:30";
+    userDate = "2021.11.24";
+    userTime = "오후 8:30";
     resultDialog(
       userSpeak,
       document.querySelector("#caseB-2"),
-      "이대로 일정을 수정할까요?",date+" "+time
+      "이대로 일정을 수정할까요?",userDate+" "+userTime
     );
     window.localStorage.setItem("stageState", "scenario2 : caseB-task2-1");
+    stateAndUserSpeak(CaseB,"scenario2 : caseB-task2-1",userSpeak);
   }else if (
-    /** CaseB-2-2 => 11월 24일만 말한 경우**/
+    //** CaseB-2-2 => 11월 24일만 말한 경우**/
     (stageState == "scenario2 : caseB-task1" || 
     stageState == "scenario2 : caseB-task2-3") &&
     (userSpeak.indexOf("11") != -1 &&
       userSpeak.indexOf("24") != -1)
   ) {
-    date = "2021.11.24";
+    userDate = "2021.11.24";
     resultDialog(
       userSpeak,
       document.querySelector("#caseB-2"),
-      "이대로 일정을 수정할까요?",date+" "+time
+      "이대로 일정을 수정할까요?",userDate+" "+userTime
     );
     window.localStorage.setItem("stageState", "scenario2 : caseB-task2-2");
+    stateAndUserSpeak(CaseB,"scenario2 : caseB-task2-2",userSpeak);
   }else if (
-    /** CaseB-2-3 => 오후 8시 30분만 말한경우**/
+    //** CaseB-2-3 => 오후 8시 30분만 말한경우**/
     (stageState == "scenario2 : caseB-task1" || 
     stageState == "scenario2 : caseB-task2-2") &&
     userSpeak.indexOf("오후") != -1  ) {
-    time = "오후 8:30";
+    userTime = "오후 8:30";
     resultDialog(
       userSpeak,
       document.querySelector("#caseB-2"),
-      "이대로 일정을 수정할까요?",date+" "+time
+      "이대로 일정을 수정할까요?",userDate+" "+userTime
     );
     window.localStorage.setItem("stageState", "scenario2 : caseB-task2-3");
+    stateAndUserSpeak(CaseB,"scenario2 : caseB-task2-3",userSpeak);
   }else if (
-    /** CaseB-2-4 => 8시 30분이라고만 말한 경우**/
+    //** CaseB-2-4 => 8시 30분이라고만 말한 경우**/
     (stageState == "scenario2 : caseB-task1" || 
     stageState == "scenario2 : caseB-task2-2")&&
     userSpeak.indexOf("8") != -1 &&
@@ -228,13 +287,14 @@ function caseB(api, userSpeak) {
     resultDialog(
       userSpeak,
       document.querySelector("#caseB-2"),
-      "이대로 일정을 수정할까요?",date+" "+time
+      "이대로 일정을 수정할까요?",userDate+" "+userTime
     );
+    stateAndUserSpeak(CaseB,stageState,userSpeak);
      } else if (
     (stageState == "scenario2 : caseB-task2-1" || 
     stageState == "scenario2 : caseB-task2-2" ||
     stageState == "scenario2 : caseB-task2-3") &&(
-      date == "2021.11.24" && time == "오후 8:30") && 
+      userDate == "2021.11.24" && userTime == "오후 8:30") && 
     (userSpeak.indexOf("응") != -1 ||
       userSpeak.indexOf("네") != -1 ||
       userSpeak.indexOf("맞") != -1 ||
@@ -242,14 +302,22 @@ function caseB(api, userSpeak) {
       userSpeak.indexOf("어") != -1||
       userSpeak.indexOf("우") != -1 || userSpeak.indexOf("수정") != -1)
   ) {
-    /** CaseB-3 **/
+    //** CaseB-3 **/
     $("#changed").show();
     resultDialog(
       userSpeak,
       document.querySelector("#caseB-3"),
       '11월 24일 "미팅" 일정을 오후 8시 30분으로 바꿨어요.',
-      date+" "+time
+      userDate+" "+userTime
     );
+    window.localStorage.setItem("stageState", "scenario2 : caseB-fin");
+
+    stateAndUserSpeak(CaseB,"scenario2 : caseB-fin",userSpeak);
+    checkTime(CaseB);
+    Scenario2.CaseB = CaseB;
+    window.localStorage.setItem("Scenario2", JSON.stringify(Scenario2));
+    console.log(Scenario2);
+
     $("#mic-button").removeClass("mic_buttton_active");
     api.stop();
     active = true;
@@ -258,9 +326,9 @@ function caseB(api, userSpeak) {
       document.querySelector("#caseB-fin").muted = false;
       document.querySelector("#caseB-fin").play();
     }, 9000);
-    window.localStorage.setItem("stageState", "scenario2 : caseB-fin");
+    
   } else if (
-    /** CaseB-2(1) **/
+    //** CaseB-2(1) **/
     (stageState == "scenario2 : caseB-task1"||
     stageState == "scenario2 : caseB-task2-2"||
     stageState == "scenario2 : caseB-task2-3" )&&
@@ -273,14 +341,16 @@ function caseB(api, userSpeak) {
     resultDialog(
       userSpeak,
       document.querySelector("#caseB-modify"),
-      "무엇을 수정할까요?",date+" "+time
+      "무엇을 수정할까요?",userDate+" "+userTime
     );
+    stateAndUserSpeak(CaseB,stageState,userSpeak);
   }else {
     answerContain(
       userSpeak,
       document.querySelector("#error"),
       "무슨 말인지 못 알아들었어요."
     );
+    errorCount++;
   }
 }
 
@@ -293,11 +363,13 @@ function caseB(api, userSpeak) {
 
 
 
-/***** CaseC *****/
+//*************************************************************************************************
+//********************************************* CaseC *********************************************
+//*************************************************************************************************
+
 function caseC(api, userSpeak) {
-  console.log(userSpeak);
-  console.log("stageState:" + stageState);
-  /** CaseC-1 **/
+ 
+  //** CaseC-1 **/
   if (
     stageState == "scenario2 : caseC" &&
     (userSpeak.indexOf("미팅") != -1 || userSpeak.indexOf("일정") != -1)&&
@@ -305,10 +377,12 @@ function caseC(api, userSpeak) {
     (userSpeak.indexOf("30") != -1 ||
     userSpeak.indexOf("반") != -1)
   ) {
+    Scenario2 = JSON.parse(window.localStorage.getItem("Scenario2"));
     selectDialog(userSpeak, document.querySelector("#caseC-1"),"해당 일정이 3개가 존재합니다. 어떤 일정을 수정할까요?");
     window.localStorage.setItem("stageState", "scenario2 : caseC-task1");
+    stateAndUserSpeak(CaseC,"scenario2 : caseC-task1",userSpeak);
   } else if (
-    /** CaseC-2 **/
+  //** CaseC-2 **/
     stageState == "scenario2 : caseC-task1" && (userSpeak.indexOf("세") != -1 || 
     (userSpeak.indexOf("11") != -1 && userSpeak.indexOf("24") != -1))
   ) {
@@ -319,17 +393,31 @@ function caseC(api, userSpeak) {
       "2021.11.24 오전 8:30"
     );
     window.localStorage.setItem("stageState", "scenario2 : caseC-task2");
+    stateAndUserSpeak(CaseC,"scenario2 : caseC-task2",userSpeak);
   } else if (
     stageState == "scenario2 : caseC-task2" &&
     (userSpeak.indexOf("아니") != -1 || userSpeak.indexOf("오후") != -1)
   ) {
-    /** CaseC-fin **/
+  //** CaseC-fin **/
     $("#pick-date"). removeClass("circle"); 
     $("#pick-date"). addClass("selected-circle");
     $("#changed-container").show();
     selectDialog(userSpeak, document.querySelector("#caseB-3"),
     '11월 24일 "미팅" 일정을 오후 8시 30분으로 바꿨어요.');
+
+    window.localStorage.setItem("stageState", "scenario2 : caseC-fin");
     
+    stateAndUserSpeak(CaseC,"scenario2 : caseC-fin",userSpeak);
+    checkTime(CaseC);
+    Scenario2.CaseC = CaseC;
+    console.log(Scenario2)
+    window.localStorage.setItem("Scenario2", JSON.stringify(Scenario2));
+
+    let Experiment = JSON.parse(window.localStorage.getItem("Experiment"));
+    Experiment.Scenario2 = Scenario2
+    window.localStorage.setItem("Experiment", JSON.stringify(Experiment));
+    console.log(Experiment)
+
     $("#mic-button").removeClass("mic_buttton_active");
     api.stop();
     active = true;
@@ -337,13 +425,14 @@ function caseC(api, userSpeak) {
       document.querySelector("#caseC-fin").muted = false;
       document.querySelector("#caseC-fin").play();
     }, 9000);
-    window.localStorage.setItem("stageState", "scenario2 : caseC-fin");
+
   } else {
     answerContain(
       userSpeak,
       document.querySelector("#error"),
       "무슨 말인지 못 알아들었어요."
     );
+    errorCount++;
   }
 }
 
