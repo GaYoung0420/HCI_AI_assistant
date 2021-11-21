@@ -55,7 +55,7 @@ class SpeechRecongnitionAPI {
           stageState == "scenario1 : caseC-task1" ||
           stageState == "scenario1 : caseC-task2"
         ){
-          if (stageState == "scenario1 : caseB")
+          if (stageState == "scenario1 : caseC")
             start = new Date();
           caseC(this.speechApi, transcript);
         }
