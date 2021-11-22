@@ -386,7 +386,11 @@ function caseC(api, userSpeak) {
     stateAndUserSpeak(CaseC,"scenario2 : caseC-task1",userSpeak);
   } else if (
   //** CaseC-2 **/
-    stageState == "scenario2 : caseC-task1" && (userSpeak.indexOf("세") != -1 || 
+    stageState == "scenario2 : caseC-task1" && 
+    (
+    userSpeak.indexOf("세") != -1 ||
+    serSpeak.indexOf("마지막") != -1 ||
+    serSpeak.indexOf("3") != -1 ||
     (userSpeak.indexOf("11") != -1 && userSpeak.indexOf("24") != -1))
   ) {
     resultDialog(

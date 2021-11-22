@@ -293,7 +293,9 @@ function caseC(api, userSpeak) {
   } else if (
     /** CaseC-2 **/
     stageState == "scenario3 : caseC-task1" && 
-    (userSpeak.indexOf("두") != -1 || userSpeak.indexOf("조이") != -1)
+    (userSpeak.indexOf("두") != -1 || 
+    serSpeak.indexOf("2") != -1 
+    ||userSpeak.indexOf("조이") != -1)
   ) {
     resultDialog(
       userSpeak,
