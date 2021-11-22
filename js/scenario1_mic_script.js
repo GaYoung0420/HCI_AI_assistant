@@ -333,6 +333,8 @@ function caseC(api, userSpeak) {
     //** CaseC-2 **/
     stageState == "scenario1 : caseC-task1" &&
     (userSpeak.indexOf("세") != -1 ||
+    userSpeak.indexOf("삼") != -1 ||
+    userSpeak.indexOf("산본") != -1 ||
     serSpeak.indexOf("마지막") != -1 ||
     serSpeak.indexOf("3") != -1 ||
       userSpeak.indexOf("010-8981-2508") != -1 ||
