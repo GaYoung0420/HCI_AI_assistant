@@ -271,6 +271,10 @@ function caseB(api, userSpeak) {
       userSpeak.indexOf("맞") != -1 ||
       userSpeak.indexOf("보내") != -1||
       userSpeak.indexOf("어") != -1||
+      userSpeak.indexOf("그래") != -1||
+      userSpeak.indexOf("좋아") != -1||
+      userSpeak.indexOf("오케이") != -1||
+      userSpeak.indexOf("okay") != -1||
       userSpeak.indexOf("우") != -1)
   ) {
     $("#checkBtn").hide();

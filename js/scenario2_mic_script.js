@@ -295,12 +295,15 @@ function caseB(api, userSpeak) {
     stageState == "scenario2 : caseB-task2-2" ||
     stageState == "scenario2 : caseB-task2-3") &&(
       userDate == "2021.11.24" && userTime == "오후 8:30") && 
-    (userSpeak.indexOf("응") != -1 ||
-      userSpeak.indexOf("네") != -1 ||
-      userSpeak.indexOf("맞") != -1 ||
-      userSpeak.indexOf("바꿔") != -1||
-      userSpeak.indexOf("어") != -1||
-      userSpeak.indexOf("우") != -1 || userSpeak.indexOf("수정") != -1)
+    ((userSpeak.indexOf("응") != -1 ||
+    userSpeak.indexOf("네") != -1 ||
+    userSpeak.indexOf("맞") != -1 ||
+    userSpeak.indexOf("어") != -1||
+    userSpeak.indexOf("그래") != -1||
+    userSpeak.indexOf("좋아") != -1||
+    userSpeak.indexOf("오케이") != -1||
+    userSpeak.indexOf("okay") != -1||
+    userSpeak.indexOf("우") != -1) || userSpeak.indexOf("수정") != -1)
   ) {
     //** CaseB-3 **/
     $("#changed").show();

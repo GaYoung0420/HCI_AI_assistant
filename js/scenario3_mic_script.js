@@ -219,12 +219,15 @@ function caseB(api, userSpeak) {
     stateAndUserSpeak(CaseB,"scenario3 : caseB-task2",userSpeak);
   } else if (
     stageState == "scenario3 : caseB-task2"  && 
-    (userSpeak.indexOf("응") != -1 ||
-      userSpeak.indexOf("네") != -1 ||
-      userSpeak.indexOf("맞") != -1 ||
-      userSpeak.indexOf("틀어줘") != -1||
-      userSpeak.indexOf("어") != -1||
-      userSpeak.indexOf("우") != -1 || userSpeak.indexOf("수정") != -1)
+    ((userSpeak.indexOf("응") != -1 ||
+    userSpeak.indexOf("네") != -1 ||
+    userSpeak.indexOf("맞") != -1 ||
+    userSpeak.indexOf("어") != -1||
+    userSpeak.indexOf("그래") != -1||
+    userSpeak.indexOf("좋아") != -1||
+    userSpeak.indexOf("오케이") != -1||
+    userSpeak.indexOf("okay") != -1||
+    userSpeak.indexOf("우") != -1) || userSpeak.indexOf("수정") != -1)
   ) {
     /** CaseB-3 **/
     resultDialog(
