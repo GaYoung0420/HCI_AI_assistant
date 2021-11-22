@@ -413,8 +413,8 @@ function caseC(api, userSpeak) {
     userSpeak.indexOf("세") != -1 ||
     userSpeak.indexOf("삼") != -1 ||
     userSpeak.indexOf("산본") != -1 ||
-    serSpeak.indexOf("마지막") != -1 ||
-    serSpeak.indexOf("3") != -1 ||
+    userSpeak.indexOf("마지막") != -1 ||
+    userSpeak.indexOf("3") != -1 ||
     (userSpeak.indexOf("11") != -1 && userSpeak.indexOf("24") != -1))
   ) {
     resultDialog(
